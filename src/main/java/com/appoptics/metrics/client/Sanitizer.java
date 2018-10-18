@@ -75,18 +75,6 @@ public abstract class Sanitizer {
         }
     };
 
-    @SuppressWarnings("unused")
-    public static final Sanitizer SOURCE_SANITIZER = new Sanitizer() {
-        private final int lengthLimit = 255;
-        // "replace anything that isn't a letter, number, dash, dot, colon or underscore"
-        private final Pattern disallowedCharacters = Pattern.compile("[^-:A-Za-z0-9_.]");
-
-        @Override
-        public String apply(final String source) {
-            return sanitize(source, disallowedCharacters, lengthLimit, false);
-        }
-    };
-
     /**
      * Apply the sanitizer to the input
      *
