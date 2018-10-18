@@ -2,18 +2,18 @@ package com.appoptics.metrics.client;
 
 import java.util.*;
 
-public class TaggedMeasure extends AbstractMeasure {
+public class Measure extends AbstractMeasure {
     private double sum;
     private long count;
     private double min;
     private double max;
     private List<Tag> tags = new LinkedList<>();
 
-    public TaggedMeasure(String name, double value, Tag tag, Tag...tags) {
+    public Measure(String name, double value, Tag tag, Tag...tags) {
         this(name, value, 1, value, value, tag, tags);
     }
 
-    public TaggedMeasure(String name, double sum, long count, double min, double max, Tag tag, Tag...tags) {
+    public Measure(String name, double sum, long count, double min, double max, Tag tag, Tag...tags) {
         super(name);
         this.sum = sum;
         this.count = count;
@@ -66,12 +66,12 @@ public class TaggedMeasure extends AbstractMeasure {
         return map;
     }
 
-    public TaggedMeasure setPeriod(int period) {
+    public Measure setPeriod(int period) {
         this.period = period;
         return this;
     }
 
-    public TaggedMeasure setMetricAttributes(Map<String, Object> attributes) {
+    public Measure setMetricAttributes(Map<String, Object> attributes) {
         this.metricAttributes = attributes;
         return this;
     }
@@ -93,9 +93,9 @@ public class TaggedMeasure extends AbstractMeasure {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof TaggedMeasure)) return false;
+        if (!(o instanceof Measure)) return false;
         if (!super.equals(o)) return false;
-        TaggedMeasure that = (TaggedMeasure) o;
+        Measure that = (Measure) o;
         return Double.compare(that.sum, sum) == 0 &&
                 count == that.count &&
                 Double.compare(that.min, min) == 0 &&

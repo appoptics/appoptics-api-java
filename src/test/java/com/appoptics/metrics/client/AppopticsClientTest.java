@@ -36,7 +36,7 @@ public class AppopticsClientTest {
     public void testTrimsTagName() {
         long now = System.currentTimeMillis() / 1000;
         client.postMeasures(new Measures(Collections.<Tag>emptyList(), now)
-                .add(new TaggedMeasure("metric-name", 42,
+                .add(new Measure("metric-name", 42,
                         new Tag("tagNametagNametagNametagNametagNametagNametagNametagNametagNameta", // 65 ch
                                 "tagValue"))));
         assertThat(poster.posts).isEqualTo(asList(
@@ -51,7 +51,7 @@ public class AppopticsClientTest {
     public void testTrimsTagValue() throws Exception {
         long now = System.currentTimeMillis() / 1000;
         client.postMeasures(new Measures(Collections.<Tag>emptyList(), now)
-                .add(new TaggedMeasure("metric-name", 42,
+                .add(new Measure("metric-name", 42,
                         new Tag("tagName",
                                 "tagValuetagValuetagValuetagValuetagValuetagValuetagValuetagValuetagValuetagValuetagValuetagValuetagValuetagValuetagValuetagValuetagValuetagValuetagValuetagValuetagValuetagValuetagValuetagValuetagValuetagValuetagValuetagValuetagValuetagValuetagValuetagValue")))); // 256
         assertThat(poster.posts).isEqualTo(asList(
@@ -66,7 +66,7 @@ public class AppopticsClientTest {
     public void testSendsPeriod() throws Exception {
         long now = System.currentTimeMillis() / 1000;
         client.postMeasures(new Measures(Collections.<Tag>emptyList(), now, 30)
-                .add(new TaggedMeasure("foo", 42,
+                .add(new Measure("foo", 42,
                         new Tag("tagName", "tagValue"))
                         .setPeriod(30)));
         assertThat(poster.posts).isEqualTo(asList(
@@ -81,11 +81,11 @@ public class AppopticsClientTest {
     @Test
     public void testSplitsPayloads() throws Exception {
         client.postMeasures(new Measures()
-                .add(new TaggedMeasure("foo", 42,
+                .add(new Measure("foo", 42,
                         new Tag("tagName", "tagValue")))
-                .add(new TaggedMeasure("bar", 43,
+                .add(new Measure("bar", 43,
                         new Tag("tagName", "tagValue")))
-                .add(new TaggedMeasure("split", 45,
+                .add(new Measure("split", 45,
                         new Tag("tagName", "tagValue"))));
 
         assertThat(poster.posts).isEqualTo(asList(
@@ -102,7 +102,7 @@ public class AppopticsClientTest {
     @Test
     public void testPostsATaggedMeasure() throws Exception {
         client.postMeasures(new Measures()
-                .add(new TaggedMeasure("foo", 42, new Tag("x", "y"))));
+                .add(new Measure("foo", 42, new Tag("x", "y"))));
         assertThat(poster.posts).isEqualTo(asList(
                 new Post(measuresUrl, connectTimeout, timeout, headers, new Payload()
                         .addMeasurement("foo", 42, new Tag("x", "y")))));
@@ -112,7 +112,7 @@ public class AppopticsClientTest {
     @Test
     public void testPostsComplexGauge() throws Exception {
         client.postMeasures(new Measures()
-                .add(new TaggedMeasure("foo", 100, 10, 20, 40, new Tag("x", "y"))));
+                .add(new Measure("foo", 100, 10, 20, 40, new Tag("x", "y"))));
         assertThat(poster.posts).isEqualTo(asList(
                 new Post(measuresUrl, connectTimeout, timeout, headers, new Payload()
                         .addMeasurement("foo", null, 100, 10, 20, 40, new Tag("x", "y")))));

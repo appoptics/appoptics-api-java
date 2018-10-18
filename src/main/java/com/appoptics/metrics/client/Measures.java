@@ -44,28 +44,11 @@ public class Measures {
         return result;
     }
 
-    public Measures toMeasures() {
-        return convert();
-    }
-
     public List<Tag> getTags() {
         return tags;
     }
 
-    interface MeasurePredicate {
-        boolean accept(IMeasure measure);
-    }
-
-    private Measures convert() {
-        Measures result = new Measures(tags, epoch, period);
-
-        for (IMeasure measure : this.measures) {
-            result.measures.add(measure);
-        }
-        return result;
-    }
-
-    public Measures add(TaggedMeasure measure) {
+    public Measures add(Measure measure) {
         return addMeasure(measure);
     }
 

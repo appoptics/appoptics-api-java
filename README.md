@@ -26,8 +26,8 @@ Once your client has been built, you can submit measures to the AppOptics
 API:
 
     PostMeasuresResult result = client.postMeasures(new Measures()
-        .add(new TaggedMeasure(name, value, tag, tag))
-        .add(new TaggedMeasure(name, sum, count, min, max, tag, tag ,tag)));
+        .add(new Measure(name, value, tag, tag))
+        .add(new Measure(name, sum, count, min, max, tag, tag ,tag)));
     
     for (PostResult postResult : result.results) {
         if (result.isError()) {
