@@ -1,6 +1,5 @@
 package com.appoptics.metrics.client;
 
-import com.fasterxml.jackson.annotation.JsonTypeName;
 import okhttp3.*;
 
 import java.io.IOException;
@@ -8,7 +7,6 @@ import java.util.Map;
 
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
 
-@JsonTypeName("okhttp")
 public class OkHttpPoster implements IPoster {
     private static final MediaType JSON
             = MediaType.parse("application/json; charset=utf-8");

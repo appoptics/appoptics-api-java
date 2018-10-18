@@ -1,6 +1,5 @@
 package com.appoptics.metrics.client;
 
-import com.fasterxml.jackson.annotation.JsonTypeName;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -11,7 +10,6 @@ import java.util.Map;
 
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
 
-@JsonTypeName("default")
 public class DefaultPoster implements IPoster {
     private static final Logger log = LoggerFactory.getLogger(DefaultPoster.class);
 
