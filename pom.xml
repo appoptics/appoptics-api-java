@@ -7,11 +7,11 @@
         <version>7</version>
     </parent>
     <groupId>com.appoptics.metrics</groupId>
-    <artifactId>appoptics-java</artifactId>
+    <artifactId>appoptics-api-java</artifactId>
     <name>AppOptics Metrics API Java Library</name>
     <version>1.0.0-SNAPSHOT</version>
     <description>A set of libraries to facilitate posting data to the AppOptics Metrics Api</description>
-    <url>https://github.com/appoptics/appoptics-java</url>
+    <url>https://github.com/appoptics/appoptics-api-java</url>
     <licenses>
         <license>
             <name>Apache License 2.0</name>
@@ -20,9 +20,9 @@
         </license>
     </licenses>
     <scm>
-        <url>https://github.com/appoptics/appoptics-java</url>
-        <connection>scm:git:git@github.com:appoptics/appoptics-java.git</connection>
-        <developerConnection>scm:git:git@github.com:appoptics/appoptics-java.git</developerConnection>
+        <url>https://github.com/appoptics/appoptics-api-java</url>
+        <connection>scm:git:git@github.com:appoptics/appoptics-api-java.git</connection>
+        <developerConnection>scm:git:git@github.com:appoptics/appoptics-api-java.git</developerConnection>
       <tag>HEAD</tag>
   </scm>
     <build>
