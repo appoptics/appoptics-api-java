@@ -3,6 +3,8 @@ package com.appoptics.metrics.client;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.Objects;
+
 public class Tag {
     @JsonProperty("name")
     public final String name;
@@ -24,19 +26,14 @@ public class Tag {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
+        if (!(o instanceof Tag)) return false;
         Tag tag = (Tag) o;
-
-        if (name != null ? !name.equals(tag.name) : tag.name != null)
-            return false;
-        return value != null ? value.equals(tag.value) : tag.value == null;
+        return Objects.equals(name, tag.name) &&
+                Objects.equals(value, tag.value);
     }
 
     @Override
     public int hashCode() {
-        int result = name != null ? name.hashCode() : 0;
-        result = 31 * result + (value != null ? value.hashCode() : 0);
-        return result;
+        return Objects.hash(name, value);
     }
 }
