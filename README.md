@@ -1,4 +1,4 @@
-# appoptics-java
+# appoptics-api-java
 
 Java language bindings for the [AppOptics](https://www.appoptics.com) Metrics API.
 
@@ -6,7 +6,7 @@ Java language bindings for the [AppOptics](https://www.appoptics.com) Metrics AP
 
     <dependency>
         <groupId>com.appoptics.metrics</groupId>
-        <artifactId>appoptics-java</artifactId>
+        <artifactId>appoptics-api-java</artifactId>
         <version>1.0.0</version>
     </dependency>
 
