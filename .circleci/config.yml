@@ -1,0 +1,12 @@
+# Java Maven CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-java/ for more details
+#
+version: 2.1
+orbs:
+  maven: circleci/maven@volatile
+
+workflows:
+  test:
+    jobs:
+    - maven/test
