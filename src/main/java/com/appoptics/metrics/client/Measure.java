@@ -9,17 +9,16 @@ public class Measure extends AbstractMeasure {
     private double max;
     private List<Tag> tags = new LinkedList<>();
 
-    public Measure(String name, double value, Tag tag, Tag...tags) {
-        this(name, value, 1, value, value, tag, tags);
+    public Measure(String name, double value, Tag...tags) {
+        this(name, value, 1, value, value, tags);
     }
 
-    public Measure(String name, double sum, long count, double min, double max, Tag tag, Tag...tags) {
+    public Measure(String name, double sum, long count, double min, double max, Tag...tags) {
         super(name);
         this.sum = sum;
         this.count = count;
         this.min = min;
         this.max = max;
-        addTag(tag);
         addTags(tags);
     }
 
