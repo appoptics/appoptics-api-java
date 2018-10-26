@@ -31,6 +31,8 @@
             <id>support</id>
             <name>Support</name>
             <email>support@appoptics.com</email>
+            <organization>AppOptics</organization>
+            <organizationUrl>https://www.appoptics.com/</organizationUrl>
         </developer>
     </developers>
     <profiles>
