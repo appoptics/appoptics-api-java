@@ -26,6 +26,13 @@
             <url>https://oss.sonatype.org/content/repositories/snapshots</url>
         </snapshotRepository>
     </distributionManagement>
+    <developers>
+        <developer>
+            <id>support</id>
+            <name>Support</name>
+            <email>support@appoptics.com</email>
+        </developer>
+    </developers>
     <profiles>
         <profile>
             <id>release</id>
