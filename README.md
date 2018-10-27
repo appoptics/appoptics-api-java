@@ -4,6 +4,8 @@ Java language bindings for the [AppOptics](https://www.appoptics.com) Metrics AP
 
 ## Maven Dependency
 
+Find the latest [version here](https://search.maven.org/search?q=g:com.appoptics.metrics%20AND%20a:appoptics-api-java&core=gav).
+
     <dependency>
         <groupId>com.appoptics.metrics</groupId>
         <artifactId>appoptics-api-java</artifactId>
