@@ -29,7 +29,7 @@ public class AppopticsClientTest {
     public void setUp() throws Exception {
         headers.put("Content-Type", "application/json");
         headers.put("Authorization", Authorization.buildAuthHeader(token));
-        headers.put("User-Agent", "test-lib appoptics-java/0.0.10");
+        headers.put("User-Agent", "test-lib appoptics-api-java/0.0.10");
     }
 
     @Test
