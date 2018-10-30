@@ -9,7 +9,7 @@ import java.util.concurrent.ThreadPoolExecutor.CallerRunsPolicy;
  * The main class that should be used to access the AppOptics API
  */
 public class AppopticsClient {
-    private static final String LIB_VERSION = Versions.getVersion("META-INF/maven/com.appoptics.metrics/appoptics-java/pom.properties", AppopticsClient.class);
+    private static final String LIB_VERSION = Versions.getVersion("META-INF/maven/com.appoptics.metrics/appoptics-api-java/pom.properties", AppopticsClient.class);
     private final URI uri;
     private final int batchSize;
     private final Duration connectTimeout;
@@ -42,7 +42,7 @@ public class AppopticsClient {
         this.executor = new ThreadPoolExecutor(0, attrs.maxInflightRequests, 10, TimeUnit.SECONDS, queue, threadFactory, new CallerRunsPolicy());
         measurementPostHeaders.put("Content-Type", "application/json");
         measurementPostHeaders.put("Authorization", Authorization.buildAuthHeader(attrs.token));
-        measurementPostHeaders.put("User-Agent", String.format("%s appoptics-java/%s", attrs.agentIdentifier, LIB_VERSION));
+        measurementPostHeaders.put("User-Agent", String.format("%s appoptics-api-java/%s", attrs.agentIdentifier, LIB_VERSION));
     }
 
     public PostMeasuresResult postMeasures(Measures measures) {
