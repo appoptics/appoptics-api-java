@@ -1,6 +1,7 @@
 # appoptics-api-java
 
-Java language bindings for the [AppOptics](https://www.appoptics.com) Metrics API.
+Java language bindings for the [AppOptics](https://www.appoptics.com) Metrics 
+[API](https://docs.appoptics.com/api/#create-a-measurement).
 
 ## Maven Dependency
 
