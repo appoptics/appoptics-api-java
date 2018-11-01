@@ -10,7 +10,7 @@ Find the latest [version here](https://search.maven.org/search?q=g:com.appoptics
     <dependency>
         <groupId>com.appoptics.metrics</groupId>
         <artifactId>appoptics-api-java</artifactId>
-        <version>1.0.0</version>
+        <version>1.0.2</version>
     </dependency>
 
 ## Setup
