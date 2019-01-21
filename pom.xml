@@ -4,7 +4,7 @@
     <groupId>com.appoptics.metrics</groupId>
     <artifactId>appoptics-api-java</artifactId>
     <name>AppOptics Metrics API Java Library</name>
-    <version>1.0.5-SNAPSHOT</version>
+    <version>1.0.5</version>
     <description>A set of libraries to facilitate posting data to the AppOptics Metrics Api</description>
     <url>https://github.com/appoptics/appoptics-api-java</url>
     <licenses>
@@ -18,7 +18,7 @@
         <url>https://github.com/appoptics/appoptics-api-java</url>
         <connection>scm:git:git@github.com:appoptics/appoptics-api-java.git</connection>
         <developerConnection>scm:git:git@github.com:appoptics/appoptics-api-java.git</developerConnection>
-      <tag>HEAD</tag>
+      <tag>appoptics-api-java-1.0.5</tag>
     </scm>
     <distributionManagement>
         <snapshotRepository>
