@@ -70,6 +70,11 @@ public class Measure extends AbstractMeasure {
         return this;
     }
 
+    public Measure setEpoch(long epoch) {
+        this.epoch = epoch;
+        return this;
+    }
+
     public Measure setMetricAttributes(Map<String, Object> attributes) {
         this.metricAttributes = attributes;
         return this;

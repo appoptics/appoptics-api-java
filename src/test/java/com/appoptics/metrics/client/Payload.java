@@ -15,7 +15,7 @@ class Payload {
     static final ObjectMapper mapper = new ObjectMapper();
     @JsonProperty
     Integer period;
-    @JsonProperty("time")
+    @JsonProperty
     Long time;
     @JsonProperty
     List<Map<String, Object>> measurements = new LinkedList<Map<String, Object>>();
@@ -39,6 +39,10 @@ class Payload {
     }
 
     public Payload addMeasurement(String name, Integer period, double sum, long count, double min, double max, Tag... tags) {
+        return addMeasurement(name, period, null, sum, count, min, max, tags);
+    }
+
+    public Payload addMeasurement(String name, Integer period, Long epoch, double sum, long count, double min, double max, Tag... tags) {
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("name", name);
         map.put("sum", sum);
@@ -47,6 +51,9 @@ class Payload {
         map.put("max", max);
         if (period != null) {
             map.put("period", period);
+        }
+        if (epoch != null) {
+            map.put("time", epoch);
         }
         Map<String, String> tagMap = new HashMap<String, String>();
         map.put("tags", tagMap);

@@ -79,6 +79,25 @@ public class AppopticsClientTest {
     }
 
     @Test
+    public void testSendsEpoch() throws Exception {
+        long now = System.currentTimeMillis() / 1000;
+        long measureTime = now - 60;
+        client.postMeasures(new Measures(Collections.<Tag>emptyList(), now, 30)
+                .add(new Measure("foo", 42, 1, 5, 41,
+                        new Tag("tagName", "tagValue"))
+                        .setPeriod(30)
+                        .setEpoch(measureTime)));
+        assertThat(poster.posts).isEqualTo(asList(
+                new Post(measuresUrl, connectTimeout, timeout, headers, new Payload()
+                        .setTime(now)
+                        .setPeriod(30)
+                        .addMeasurement("foo", 30, measureTime, 42D, 1, 5, 41,
+                                new Tag("tagName", "tagValue"))
+
+                )));
+    }
+
+    @Test
     public void testSplitsPayloads() throws Exception {
         client.postMeasures(new Measures()
                 .add(new Measure("foo", 42,
