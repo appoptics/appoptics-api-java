@@ -160,7 +160,7 @@
     </build>
     <packaging>jar</packaging>
     <properties>
-        <jackson.version>2.9.8</jackson.version>
+        <jackson.version>2.15.2</jackson.version>
         <maven.compiler.target>11</maven.compiler.target>
         <maven.compiler.source>11</maven.compiler.source>
     </properties>
