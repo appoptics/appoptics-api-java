@@ -1,12 +1,14 @@
 package com.appoptics.metrics.client;
 
+import java.net.http.HttpResponse;
+
 public class PostResult {
     public final boolean md;
     public final byte[] payload;
     public final Exception exception;
-    public final HttpResponse response;
+    public final HttpResponse<byte[]> response;
 
-    public PostResult(boolean md, byte[] payload, HttpResponse response) {
+    public PostResult(boolean md, byte[] payload, HttpResponse<byte[]> response) {
         this.md = md;
         this.payload = payload;
         this.response = response;
@@ -26,12 +28,12 @@ public class PostResult {
         } else if (response == null) {
             return true;
         }
-        int code = response.getResponseCode();
+        int code = response.statusCode();
         if (!md && code == 200) {
             return false;
         }
         if (md && code / 100 == 2) {
-            AppopticsResponse response = Json.deserialize(this.response.getResponseBody(), AppopticsResponse.class);
+            AppopticsResponse response = Json.deserialize(this.response.body(), AppopticsResponse.class);
             if (!response.isFailed()) {
                 return false;
             }
@@ -45,8 +47,8 @@ public class PostResult {
             return exception.toString();
         }
         if (response != null) {
-            int code = response.getResponseCode();
-            byte[] body = response.getResponseBody();
+            int code = response.statusCode();
+            byte[] body = response.body();
             return "code:" + code + " response:" + new String(body);
         }
         return "invalid post result";

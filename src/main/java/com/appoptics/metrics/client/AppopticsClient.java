@@ -12,8 +12,6 @@ public class AppopticsClient {
     private static final String LIB_VERSION = Versions.getVersion("META-INF/maven/com.appoptics.metrics/appoptics-api-java/pom.properties", AppopticsClient.class);
     private final URI uri;
     private final int batchSize;
-    private final Duration connectTimeout;
-    private final Duration readTimeout;
     private final IPoster poster;
     private final ExecutorService executor;
     private final ResponseConverter responseConverter = new ResponseConverter();
@@ -26,8 +24,6 @@ public class AppopticsClient {
     AppopticsClient(AppopticsClientAttributes attrs) {
         this.uri = URIs.removePath(attrs.uri);
         this.batchSize = attrs.batchSize;
-        this.connectTimeout = attrs.connectTimeout;
-        this.readTimeout = attrs.readTimeout;
         this.poster = attrs.poster;
         BlockingQueue<Runnable> queue = new SynchronousQueue<Runnable>();
         ThreadFactory threadFactory = new ThreadFactory() {
@@ -76,7 +72,7 @@ public class AppopticsClient {
                 for (Measures batch : measures.partition(AppopticsClient.this.batchSize)) {
                     byte[] payload = payloadBuilder.build(batch);
                     try {
-                        HttpResponse response = poster.post(fullUrl(uri), connectTimeout, readTimeout, measurementPostHeaders, payload);
+                        var response = poster.post(fullUrl(uri), measurementPostHeaders, payload);
                         results.add(responseConverter.convert(payload, response));
                     } catch (Exception e) {
                         results.add(responseConverter.convert(payload, e));

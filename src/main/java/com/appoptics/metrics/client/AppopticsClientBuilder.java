@@ -1,6 +1,7 @@
 package com.appoptics.metrics.client;
 
 import java.net.URI;
+import java.time.Duration;
 
 public class AppopticsClientBuilder {
     private final AppopticsClientAttributes attrs = new AppopticsClientAttributes();

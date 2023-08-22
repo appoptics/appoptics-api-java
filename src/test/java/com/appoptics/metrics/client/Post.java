@@ -1,5 +1,6 @@
 package com.appoptics.metrics.client;
 
+import java.time.Duration;
 import java.util.Arrays;
 import java.util.Map;
 
