@@ -1,18 +1,12 @@
 package com.appoptics.metrics.client;
 
-import org.assertj.core.api.Assertions;
 import org.junit.Before;
-import org.junit.Test;
 
 import java.time.Duration;
 import java.time.temporal.ChronoUnit;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
-import static java.util.Arrays.asList;
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 
 public class AppopticsClientTest {
@@ -162,12 +156,4 @@ public class AppopticsClientTest {
 //        AppopticsClient.builder("token").build();
 //    }
 
-    private void ensureIllegalArgument(Runnable runnable) {
-        try {
-            runnable.run();
-            Assertions.fail("Should have failed");
-        } catch (IllegalArgumentException e) {
-            // pass
-        }
-    }
 }
