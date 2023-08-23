@@ -2,7 +2,11 @@ package com.appoptics.metrics.client;
 
 import java.util.*;
 
-public class Measure extends AbstractMeasure {
+public class Measure {
+    private final String name;
+    Map<String, Object> metricAttributes = Collections.emptyMap();
+    private Long epoch;
+    private Integer period;
     private double sum;
     private long count;
     private double min;
@@ -14,7 +18,7 @@ public class Measure extends AbstractMeasure {
     }
 
     public Measure(String name, double sum, long count, double min, double max, Tag...tags) {
-        super(name);
+        this.name = name;
         this.sum = sum;
         this.count = count;
         this.min = min;
@@ -51,9 +55,11 @@ public class Measure extends AbstractMeasure {
         return string.substring(0, size);
     }
 
-    @Override
     public Map<String, Object> toMap() {
-        Map<String, Object> map = super.toMap();
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("name", Sanitizer.METRIC_NAME_SANITIZER.apply(name));
+        Maps.putIfNotNull(map, "period", period);
+        Maps.putIfNotEmpty(map, "attributes", metricAttributes);
         Maps.putIfNotNull(map, "time", epoch);
         map.put("sum", sum);
         map.put("count", count);
