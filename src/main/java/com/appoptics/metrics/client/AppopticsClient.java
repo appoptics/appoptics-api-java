@@ -87,7 +87,7 @@ public class AppopticsClient {
             payload.put("tags", Tags.toMap(measures.getTags()));
         }
         List<Map<String, Object>> gauges = new LinkedList<Map<String, Object>>();
-        for (IMeasure measure : measures.getMeasures()) {
+        for (var measure : measures.getMeasures()) {
             Map<String, Object> measureMap = measure.toMap();
             gauges.add(measureMap);
         }

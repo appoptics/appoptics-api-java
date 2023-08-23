@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-abstract class AbstractMeasure implements IMeasure {
+abstract class AbstractMeasure {
     final String name;
     Map<String, Object> metricAttributes = Collections.emptyMap();
     Integer period;
@@ -22,7 +22,6 @@ abstract class AbstractMeasure implements IMeasure {
         this.name = name;
     }
 
-    @Override
     public Map<String, Object> toMap() {
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("name", Sanitizer.METRIC_NAME_SANITIZER.apply(name));
