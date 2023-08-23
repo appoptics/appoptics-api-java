@@ -1,7 +1,12 @@
 package com.appoptics.metrics.client;
 
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
+
 import java.net.http.HttpResponse;
 
+@ToString
+@EqualsAndHashCode
 public class PostResult {
     public final boolean md;
     public final byte[] payload;
@@ -41,16 +46,4 @@ public class PostResult {
         return true;
     }
 
-    @Override
-    public String toString() {
-        if (exception != null) {
-            return exception.toString();
-        }
-        if (response != null) {
-            int code = response.statusCode();
-            byte[] body = response.body();
-            return "code:" + code + " response:" + new String(body);
-        }
-        return "invalid post result";
-    }
 }
