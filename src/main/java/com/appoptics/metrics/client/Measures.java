@@ -10,7 +10,7 @@ public class Measures {
     private final Long epoch;
     private final Integer period;
     private final List<Tag> tags = new LinkedList<Tag>();
-    private final List<AbstractMeasure> measures = new LinkedList<>();
+    private final List<Measure> measures = new LinkedList<>();
 
     public Measures() {
         this.epoch = null;
@@ -29,7 +29,7 @@ public class Measures {
         this.period = period;
     }
 
-    public Measures(Measures measures, List<AbstractMeasure> batch) {
+    public Measures(Measures measures, List<Measure> batch) {
         this.epoch = measures.epoch;
         this.period = measures.period;
         this.measures.addAll(batch);
@@ -52,7 +52,7 @@ public class Measures {
         return addMeasure(measure);
     }
 
-    private Measures addMeasure(AbstractMeasure measure) {
+    private Measures addMeasure(Measure measure) {
         this.measures.add(measure);
         return this;
     }
@@ -65,7 +65,7 @@ public class Measures {
         return epoch;
     }
 
-    public List<AbstractMeasure> getMeasures() {
+    public List<Measure> getMeasures() {
         return measures;
     }
 
