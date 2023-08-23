@@ -48,11 +48,7 @@ public class Measures {
         return tags;
     }
 
-    public Measures add(Measure measure) {
-        return addMeasure(measure);
-    }
-
-    private Measures addMeasure(Measure measure) {
+    private Measures add(Measure measure) {
         this.measures.add(measure);
         return this;
     }
