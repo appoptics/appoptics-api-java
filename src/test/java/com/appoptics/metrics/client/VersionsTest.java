@@ -7,19 +7,19 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class VersionsTest {
 
     @Test
-    public void testFindsTheVersion() throws Exception {
+    public void testFindsTheVersion() {
         final String version = Versions.getVersion("com/appoptics/metrics/valid.pom.properties", Versions.class);
         assertEquals("0.0.10", version);
     }
 
     @Test
-    public void testDoesNotFindThePath() throws Exception {
+    public void testDoesNotFindThePath() {
         final String version = Versions.getVersion("com/appoptics/metrics/does-not-exist", Versions.class);
         assertEquals("unknown", version);
     }
 
     @Test
-    public void testDoesNotFindTheVersion() throws Exception {
+    public void testDoesNotFindTheVersion() {
         final String version = Versions.getVersion("com/appoptics/metrics/invalid.pom.properties", Versions.class);
         assertEquals("unknown", version);
     }

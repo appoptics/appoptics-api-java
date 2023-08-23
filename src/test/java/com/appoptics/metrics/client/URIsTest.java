@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class URIsTest {
 
     @Test
-    public void testURIPath() throws Exception {
+    public void testURIPath() {
         assertEquals(URIs.removePath(URI.create("https://api.appoptics.com/")),
                 URI.create("https://api.appoptics.com"));
         assertEquals(URIs.removePath(URI.create("https://api.appoptics.com")),
