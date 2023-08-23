@@ -4,6 +4,7 @@ import java.net.URI;
 import java.util.*;
 import java.util.concurrent.*;
 import java.util.concurrent.ThreadPoolExecutor.CallerRunsPolicy;
+import java.util.function.Function;
 
 /**
  * The main class that should be used to access the AppOptics API
@@ -48,12 +49,7 @@ public class AppopticsClient {
         }
         Future<List<PostResult>> future = null;
         if (!measures.isEmpty()) {
-            future = postMeasures("/v1/measurements", measures, responseConverter, new IBuildsPayload() {
-                @Override
-                public byte[] build(Measures measures) {
-                    return buildPayload(measures);
-                }
-            });
+            future = postMeasures("/v1/measurements", measures, responseConverter, this::buildPayload);
         }
         if (future != null) {
             result.results.addAll(Futures.get(future));
@@ -64,13 +60,13 @@ public class AppopticsClient {
     private Future<List<PostResult>> postMeasures(final String uri,
                                                   final Measures measures,
                                                   final ResponseConverter responseConverter,
-                                                  final IBuildsPayload payloadBuilder) {
+                                                  final Function<Measures, byte[]> payloadBuilder) {
         return executor.submit(new Callable<List<PostResult>>() {
             @Override
             public List<PostResult> call() throws Exception {
                 List<PostResult> results = new LinkedList<PostResult>();
                 for (Measures batch : measures.partition(AppopticsClient.this.batchSize)) {
-                    byte[] payload = payloadBuilder.build(batch);
+                    byte[] payload = payloadBuilder.apply(batch);
                     try {
                         var response = poster.post(fullUrl(uri), measurementPostHeaders, payload);
                         results.add(responseConverter.convert(payload, response));
