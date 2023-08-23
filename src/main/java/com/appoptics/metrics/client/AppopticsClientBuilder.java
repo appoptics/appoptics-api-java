@@ -30,7 +30,7 @@ public class AppopticsClientBuilder {
         return this;
     }
 
-    public AppopticsClientBuilder setPoster(IPoster poster) {
+    public AppopticsClientBuilder setPoster(DefaultPoster poster) {
         this.attrs.poster = poster;
         return this;
     }

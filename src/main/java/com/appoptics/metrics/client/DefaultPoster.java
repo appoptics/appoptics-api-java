@@ -10,7 +10,7 @@ import java.net.http.HttpResponse;
 import java.time.Duration;
 import java.util.Map;
 
-public class DefaultPoster implements IPoster {
+public class DefaultPoster {
     private static final Logger log = LoggerFactory.getLogger(DefaultPoster.class);
     private final HttpClient client;
     private final Duration readTimeout;
@@ -24,7 +24,6 @@ public class DefaultPoster implements IPoster {
         this.readTimeout = readTimeout;
     }
 
-    @Override
     public HttpResponse<byte[]> post(String uri, Map<String, String> headers, byte[] payload) {
         try {
             var requestBuilder = HttpRequest.newBuilder()

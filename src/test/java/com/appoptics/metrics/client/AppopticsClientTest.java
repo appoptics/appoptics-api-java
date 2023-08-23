@@ -14,7 +14,7 @@ public class AppopticsClientTest {
     Duration connectTimeout = Duration.of(5, ChronoUnit.SECONDS);
     Duration timeout = Duration.of(10, ChronoUnit.SECONDS);
     Map<String, String> headers = new HashMap<String, String>();
-    IPoster poster = mock(IPoster.class);
+    DefaultPoster poster = mock(DefaultPoster.class);
     String token = "abcd1234";
     AppopticsClient client = AppopticsClient.builder(token)
             .setPoster(poster)

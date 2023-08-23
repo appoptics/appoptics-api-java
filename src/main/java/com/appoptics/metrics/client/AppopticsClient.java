@@ -13,7 +13,7 @@ public class AppopticsClient {
     private static final String LIB_VERSION = Versions.getVersion("META-INF/maven/com.appoptics.metrics/appoptics-api-java/pom.properties", AppopticsClient.class);
     private final URI uri;
     private final int batchSize;
-    private final IPoster poster;
+    private final DefaultPoster poster;
     private final ExecutorService executor;
     private final ResponseConverter responseConverter = new ResponseConverter();
     private final Map<String, String> measurementPostHeaders = new HashMap<String, String>();
