@@ -9,14 +9,15 @@ import java.util.*;
 @EqualsAndHashCode
 public class Measure {
     private final String name;
+    private final double sum;
+    private final double min;
+    private final double max;
+    private final long count;
+    private final List<Tag> tags = new LinkedList<>();
+
     Map<String, Object> metricAttributes = Collections.emptyMap();
     private Long epoch;
     private Integer period;
-    private double sum;
-    private long count;
-    private double min;
-    private double max;
-    private List<Tag> tags = new LinkedList<>();
 
     public Measure(String name, double value, Tag...tags) {
         this(name, value, 1, value, value, tags);
