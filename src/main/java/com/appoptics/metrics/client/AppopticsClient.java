@@ -63,7 +63,7 @@ public class AppopticsClient {
 
     private Future<List<PostResult>> postMeasures(final String uri,
                                                   final Measures measures,
-                                                  final IResponseConverter responseConverter,
+                                                  final ResponseConverter responseConverter,
                                                   final IBuildsPayload payloadBuilder) {
         return executor.submit(new Callable<List<PostResult>>() {
             @Override
