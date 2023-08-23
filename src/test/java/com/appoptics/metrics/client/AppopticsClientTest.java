@@ -1,6 +1,6 @@
 package com.appoptics.metrics.client;
 
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 
 import java.time.Duration;
 import java.time.temporal.ChronoUnit;
@@ -22,7 +22,7 @@ public class AppopticsClientTest {
             .setBatchSize(2)
             .build();
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         headers.put("Content-Type", "application/json");
         headers.put("Authorization", Authorization.buildAuthHeader(token));

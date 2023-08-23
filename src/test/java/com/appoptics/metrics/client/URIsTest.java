@@ -1,16 +1,16 @@
 package com.appoptics.metrics.client;
 
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 import java.net.URI;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class URIsTest {
 
     @Test
     public void testURIPath() throws Exception {
-
         assertEquals(URIs.removePath(URI.create("https://api.appoptics.com/")),
                 URI.create("https://api.appoptics.com"));
         assertEquals(URIs.removePath(URI.create("https://api.appoptics.com")),

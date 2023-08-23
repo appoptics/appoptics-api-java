@@ -1,14 +1,18 @@
 package com.appoptics.metrics.client;
 
-import junit.framework.TestCase;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
-public class SanitizerTest extends TestCase {
 
+public class SanitizerTest {
+
+    @Test
     public void testNamesRemove() {
         final List<String> removeThese = new ArrayList<String>() {{
             this.add("*");
@@ -58,7 +62,7 @@ public class SanitizerTest extends TestCase {
         assertEquals(important, sanitized.substring(0, 15));
         assertEquals(important, sanitized.substring(240, 255));
         for (String illegalCharacter : illegalCharacters) {
-            assertFalse("Key still contains illegal character " + illegalCharacter, sanitized.contains(illegalCharacter));
+            assertFalse(sanitized.contains(illegalCharacter), "Key still contains illegal character " + illegalCharacter);
         }
     }
 }
