@@ -4,21 +4,21 @@ import org.junit.Test;
 
 import java.net.URI;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertEquals;
 
 public class URIsTest {
 
     @Test
     public void testURIPath() throws Exception {
-        assertThat(URIs.removePath(URI.create("https://api.appoptics.com/")),
-                equalTo(URI.create("https://api.appoptics.com")));
-        assertThat(URIs.removePath(URI.create("https://api.appoptics.com")),
-                equalTo(URI.create("https://api.appoptics.com")));
-        assertThat(URIs.removePath(URI.create("https://api.appoptics.com:443")),
-                equalTo(URI.create("https://api.appoptics.com:443")));
-        assertThat(URIs.removePath(URI.create("https://api.appoptics.com/v1/metrics")),
-                equalTo(URI.create("https://api.appoptics.com")));
+
+        assertEquals(URIs.removePath(URI.create("https://api.appoptics.com/")),
+                URI.create("https://api.appoptics.com"));
+        assertEquals(URIs.removePath(URI.create("https://api.appoptics.com")),
+                URI.create("https://api.appoptics.com"));
+        assertEquals(URIs.removePath(URI.create("https://api.appoptics.com:443")),
+                URI.create("https://api.appoptics.com:443"));
+        assertEquals(URIs.removePath(URI.create("https://api.appoptics.com/v1/metrics")),
+                URI.create("https://api.appoptics.com"));
 
     }
 }
