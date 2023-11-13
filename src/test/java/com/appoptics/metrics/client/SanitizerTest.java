@@ -1,19 +1,18 @@
 package com.appoptics.metrics.client;
 
-import junit.framework.TestCase;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertFalse;
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.junit.Assert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
-public class SanitizerTest extends TestCase {
 
+public class SanitizerTest {
+
+    @Test
     public void testNamesRemove() {
         final List<String> removeThese = new ArrayList<String>() {{
             this.add("*");
@@ -28,7 +27,7 @@ public class SanitizerTest extends TestCase {
         for (final String remove : removeThese) {
             final String testString = "one" + remove + "two";
             final String sanitized = Sanitizer.METRIC_NAME_SANITIZER.apply(testString);
-            assertThat(sanitized, equalTo("onetwo"));
+            assertEquals(sanitized, "onetwo");
         }
     }
 
@@ -36,7 +35,7 @@ public class SanitizerTest extends TestCase {
         // had a specific problem involving these...
         final String testString = "one/two";
         final String sanitized = Sanitizer.TAG_VALUE_SANITIZER.apply(testString);
-        assertThat(sanitized, equalTo(testString));
+        assertEquals(sanitized, testString);
     }
 
     /**
@@ -63,7 +62,7 @@ public class SanitizerTest extends TestCase {
         assertEquals(important, sanitized.substring(0, 15));
         assertEquals(important, sanitized.substring(240, 255));
         for (String illegalCharacter : illegalCharacters) {
-            assertFalse("Key still contains illegal character " + illegalCharacter, sanitized.contains(illegalCharacter));
+            assertFalse(sanitized.contains(illegalCharacter), "Key still contains illegal character " + illegalCharacter);
         }
     }
 }

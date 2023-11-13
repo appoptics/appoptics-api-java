@@ -2,9 +2,11 @@ package com.appoptics.metrics.client;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
-import java.util.Objects;
-
+@ToString
+@EqualsAndHashCode
 public class Tag {
     @JsonProperty("name")
     public final String name;
@@ -16,24 +18,5 @@ public class Tag {
                @JsonProperty("value") String value) {
         this.name = name;
         this.value = value;
-    }
-
-    @Override
-    public String toString() {
-        return name + "=" + value;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Tag)) return false;
-        Tag tag = (Tag) o;
-        return Objects.equals(name, tag.name) &&
-                Objects.equals(value, tag.value);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(name, value);
     }
 }

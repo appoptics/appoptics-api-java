@@ -1,20 +1,30 @@
 package com.appoptics.metrics.client;
 
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
+
 import java.util.*;
 
-public class Measure extends AbstractMeasure {
-    private double sum;
-    private long count;
-    private double min;
-    private double max;
-    private List<Tag> tags = new LinkedList<>();
+@ToString
+@EqualsAndHashCode
+public class Measure {
+    private final String name;
+    private final double sum;
+    private final double min;
+    private final double max;
+    private final long count;
+    private final List<Tag> tags = new LinkedList<>();
+
+    Map<String, Object> metricAttributes = Collections.emptyMap();
+    private Long epoch;
+    private Integer period;
 
     public Measure(String name, double value, Tag...tags) {
         this(name, value, 1, value, value, tags);
     }
 
     public Measure(String name, double sum, long count, double min, double max, Tag...tags) {
-        super(name);
+        this.name = name;
         this.sum = sum;
         this.count = count;
         this.min = min;
@@ -51,9 +61,11 @@ public class Measure extends AbstractMeasure {
         return string.substring(0, size);
     }
 
-    @Override
     public Map<String, Object> toMap() {
-        Map<String, Object> map = super.toMap();
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("name", Sanitizer.METRIC_NAME_SANITIZER.apply(name));
+        Maps.putIfNotNull(map, "period", period);
+        Maps.putIfNotEmpty(map, "attributes", metricAttributes);
         Maps.putIfNotNull(map, "time", epoch);
         map.put("sum", sum);
         map.put("count", count);
@@ -78,37 +90,5 @@ public class Measure extends AbstractMeasure {
     public Measure setMetricAttributes(Map<String, Object> attributes) {
         this.metricAttributes = attributes;
         return this;
-    }
-
-    @Override
-    public String toString() {
-        final StringBuilder sb = new StringBuilder("{");
-        sb.append("name=").append(name);
-        sb.append(", epoch=").append(epoch);
-        sb.append(", tags=").append(tags);
-        sb.append(", sum=").append(sum);
-        sb.append(", count=").append(count);
-        sb.append(", min=").append(min);
-        sb.append(", max=").append(max);
-        sb.append('}');
-        return sb.toString();
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Measure)) return false;
-        if (!super.equals(o)) return false;
-        Measure that = (Measure) o;
-        return Double.compare(that.sum, sum) == 0 &&
-                count == that.count &&
-                Double.compare(that.min, min) == 0 &&
-                Double.compare(that.max, max) == 0 &&
-                Objects.equals(tags, that.tags);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(super.hashCode(), sum, count, min, max, tags);
     }
 }

@@ -1,7 +1,7 @@
 package com.appoptics.metrics.client;
 
-import javax.xml.bind.DatatypeConverter;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 
 public class Authorization {
     private Authorization() {
@@ -15,13 +15,11 @@ public class Authorization {
      * @return the Authorization header value
      */
     public static String buildAuthHeader(String token) {
-        if (token == null || "".equals(token)) {
+        if (token == null || token.isEmpty()) {
             throw new IllegalArgumentException("Token must be specified");
         }
-        return String.format("Basic %s", base64Encode((token + ":").getBytes(Charset.forName("UTF-8"))));
+        var creds = (token + ":").getBytes(StandardCharsets.UTF_8);
+        return "Basic " + Base64.getEncoder().encodeToString(creds);
     }
 
-    private static String base64Encode(byte[] bytes) {
-        return DatatypeConverter.printBase64Binary(bytes);
-    }
 }

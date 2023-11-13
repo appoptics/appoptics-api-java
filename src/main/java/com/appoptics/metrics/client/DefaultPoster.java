@@ -3,97 +3,41 @@ package com.appoptics.metrics.client;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.*;
-import java.net.HttpURLConnection;
-import java.net.URL;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.time.Duration;
 import java.util.Map;
 
-import static java.util.concurrent.TimeUnit.MILLISECONDS;
-
-public class DefaultPoster implements IPoster {
+public class DefaultPoster {
     private static final Logger log = LoggerFactory.getLogger(DefaultPoster.class);
+    private final HttpClient client;
+    private final Duration readTimeout;
 
-    @Override
-    public HttpResponse post(String uri, Duration connectTimeout, Duration readTimeout, Map<String, String> headers, byte[] payload) {
+    public DefaultPoster(Duration connectTimeout, Duration readTimeout) {
+        client = HttpClient.newBuilder()
+                .connectTimeout(connectTimeout)
+                .version(HttpClient.Version.HTTP_1_1)
+                .followRedirects(HttpClient.Redirect.NEVER)
+                .build();
+        this.readTimeout = readTimeout;
+    }
+
+    public HttpResponse<byte[]> post(String uri, Map<String, String> headers, byte[] payload) {
         try {
-            HttpURLConnection connection = open(uri);
-            final int responseCode;
-            final byte[] responseBody;
-            connection.setDoOutput(true);
-            connection.setDoInput(true);
-            connection.setConnectTimeout((int) connectTimeout.to(MILLISECONDS));
-            connection.setReadTimeout((int) readTimeout.to(MILLISECONDS));
-            connection.setRequestMethod("POST");
-            connection.setInstanceFollowRedirects(false);
-            for (String header : headers.keySet()) {
-                connection.setRequestProperty(header, headers.get(header));
-            }
-            connection.connect();
-            OutputStream outputStream = connection.getOutputStream();
-            try {
-                outputStream.write(payload);
-            } finally {
-                close(outputStream);
-            }
-            responseCode = connection.getResponseCode();
-            InputStream responseStream;
-            if (responseCode / 100 == 2) {
-                responseStream = connection.getInputStream();
-            } else {
-                responseStream = connection.getErrorStream();
-            }
-            if(responseStream == null) {
-                log.warn("responseStream null for {} responseCode {}", uri, responseCode);
-                responseBody = new byte[0];
-            } else {
-                responseBody = readResponse(responseStream);
-            }
-            return new HttpResponse() {
-                @Override
-                public int getResponseCode() {
-                    return responseCode;
-                }
+            var requestBuilder = HttpRequest.newBuilder()
+                    .uri(new URI(uri))
+                    .timeout(readTimeout)
+                    .POST(HttpRequest.BodyPublishers.ofByteArray(payload));
 
-                @Override
-                public byte[] getResponseBody() {
-                    return responseBody;
-                }
-            };
+            for (Map.Entry<String, String> hdr : headers.entrySet()) {
+                requestBuilder.header(hdr.getKey(), hdr.getValue());
+            }
+
+            return client.send(requestBuilder.build(), HttpResponse.BodyHandlers.ofByteArray());
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
-
-    HttpURLConnection open(String url) throws IOException {
-        try {
-            return (HttpURLConnection) new URL(url).openConnection();
-        } catch (ClassCastException ignore) {
-            throw new RuntimeException("URL " + url + " must use either http or https");
-        }
-    }
-
-    private byte[] readResponse(InputStream in) throws IOException {
-        try {
-            ByteArrayOutputStream bos = new ByteArrayOutputStream();
-            byte[] buffer = new byte[4096];
-            int bytesRead;
-            while ((bytesRead = in.read(buffer)) > 0) {
-                bos.write(buffer, 0, bytesRead);
-            }
-            return bos.toByteArray();
-        } finally {
-            close(in);
-        }
-    }
-
-    void close(Closeable closeable) {
-        try {
-            if (closeable != null) {
-                closeable.close();
-            }
-        } catch (IOException e) {
-            log.warn("Could not close " + closeable, e);
-        }
-    }
-
 }
