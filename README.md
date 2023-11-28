@@ -10,7 +10,16 @@ Find the latest [version here](https://search.maven.org/search?q=g:com.appoptics
     <dependency>
         <groupId>com.appoptics.metrics</groupId>
         <artifactId>appoptics-api-java</artifactId>
-        <version>1.0.2</version>
+        <version>1.0.6</version>
+    </dependency>
+
+You may also pull in a shaded uber jar that has all the dependencies:
+
+    <dependency>
+        <groupId>com.appoptics.metrics</groupId>
+        <artifactId>appoptics-api-java</artifactId>
+        <version>1.0.6</version>
+        <classifier>nodeps</classifier>
     </dependency>
 
 ## Setup

@@ -1,17 +1,16 @@
 package com.appoptics.metrics.client;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
 
 public class DefaultPoster implements IPoster {
-    private static final Logger log = LoggerFactory.getLogger(DefaultPoster.class);
+    private static final Logger log = Logger.getLogger(DefaultPoster.class.getName());
 
     @Override
     public HttpResponse post(String uri, Duration connectTimeout, Duration readTimeout, Map<String, String> headers, byte[] payload) {
@@ -43,7 +42,7 @@ public class DefaultPoster implements IPoster {
                 responseStream = connection.getErrorStream();
             }
             if(responseStream == null) {
-                log.warn("responseStream null for {} responseCode {}", uri, responseCode);
+                log.warning(() -> "responseStream null for " + uri + " responseCode " + responseCode);
                 responseBody = new byte[0];
             } else {
                 responseBody = readResponse(responseStream);
@@ -92,7 +91,7 @@ public class DefaultPoster implements IPoster {
                 closeable.close();
             }
         } catch (IOException e) {
-            log.warn("Could not close " + closeable, e);
+            log.log(Level.WARNING, e, () -> "Could not close " + closeable);
         }
     }
 

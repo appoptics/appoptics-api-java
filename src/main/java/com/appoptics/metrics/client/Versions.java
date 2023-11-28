@@ -1,19 +1,17 @@
 package com.appoptics.metrics.client;
 
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Encapsulates logic about versions found in POM files
  */
 public class Versions {
-    private static final Logger LOG = LoggerFactory.getLogger(Versions.class);
 
     private Versions() {
         // do not construct.
@@ -30,8 +28,7 @@ public class Versions {
         try {
             final InputStream in = klass.getClassLoader().getResourceAsStream(path);
             if (in != null) {
-                try {
-                    final BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+                try (final BufferedReader reader = new BufferedReader(new InputStreamReader(in))) {
                     String line = reader.readLine();
                     while (line != null) {
                         if (line.startsWith("version")) {
@@ -39,12 +36,11 @@ public class Versions {
                         }
                         line = reader.readLine();
                     }
-                } finally {
-                    in.close();
                 }
             }
         } catch (IOException e) {
-            LOG.error("Could not read package version using path " + path + ":", e);
+            Logger logger = Logger.getLogger(Versions.class.getName());
+            logger.log(Level.SEVERE, e, () -> "Could not read package version using path " + path);
         }
         return "unknown";
     }
